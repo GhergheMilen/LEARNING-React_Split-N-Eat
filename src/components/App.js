@@ -26,7 +26,10 @@ export default function App() {
     <main className="app">
       <aside className="sidebar">
         <FriendsList></FriendsList>
+        <FormAddFriend></FormAddFriend>
+        <Button>Add friend</Button>
       </aside>
+      <FormSplitBill></FormSplitBill>
     </main>
   );
 }
@@ -63,7 +66,43 @@ function Friend({ friend }) {
 
       {friend.balance === 0 && <p>You are even with {friend.name}</p>}
 
-      <button className="button">Select</button>
+      <Button>Select</Button>
     </li>
+  );
+}
+
+function FormAddFriend() {
+  <form className="form-add-friend">
+    <label htmlFor="">Friend name </label>
+    <input type="text" />
+    <label htmlFor="">Image URL</label>
+    <input type="text" name="" id="" />
+    <Button>Add</Button>
+  </form>;
+}
+
+function Button({ children }) {
+  return <button className="button">{children}</button>;
+}
+
+function FormSplitBill() {
+  return (
+    <form action="" className="form-split-bill">
+      <h2>Split a bill with {}</h2>
+
+      <label htmlFor="">Bill value</label>
+      <input type="text" name="" id="" />
+      <label htmlFor="">Your expense </label>
+      <input type="text" name="" id="" />
+      <label htmlFor="">{} expense</label>
+      <input type="text" name="" id="" disabled />
+      <label htmlFor="">Who is paying the bill</label>
+      <select name="" id="">
+        <option value="user">You</option>
+        <option value="friend">{}</option>
+      </select>
+
+      <Button>Split Bill</Button>
+    </form>
   );
 }
