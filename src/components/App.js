@@ -22,15 +22,31 @@ const initialFriends = [
 ];
 
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  function handleShowAddFriend() {
+    setShowAddFriend((show) => !show);
+  }
+
   return (
     <main className="app">
       <aside className="sidebar">
         <FriendsList></FriendsList>
-        <FormAddFriend></FormAddFriend>
-        <Button>Add friend</Button>
+        {showAddFriend && <FormAddFriend></FormAddFriend>}
+        <Button onClick={handleShowAddFriend}>
+          {showAddFriend ? "Close" : "Add friend"}
+        </Button>
       </aside>
       <FormSplitBill></FormSplitBill>
     </main>
+  );
+}
+
+function Button({ children, onClick }) {
+  return (
+    <button className="button" onClick={onClick}>
+      {children}
+    </button>
   );
 }
 
@@ -72,17 +88,15 @@ function Friend({ friend }) {
 }
 
 function FormAddFriend() {
-  <form className="form-add-friend">
-    <label htmlFor="">Friend name </label>
-    <input type="text" />
-    <label htmlFor="">Image URL</label>
-    <input type="text" name="" id="" />
-    <Button>Add</Button>
-  </form>;
-}
-
-function Button({ children }) {
-  return <button className="button">{children}</button>;
+  return (
+    <form className="form-add-friend">
+      <label htmlFor="">Friend name </label>
+      <input type="text" />
+      <label htmlFor="">Image URL</label>
+      <input type="text" name="" id="" />
+      <Button>Add</Button>
+    </form>
+  );
 }
 
 function FormSplitBill() {
