@@ -38,6 +38,7 @@ export default function App() {
   function handelSelection(friend) {
     // setSelectedFriend(friend);
     setSelectedFriend((cur) => (cur?.id === friend.id ? null : friend));
+    setShowAddFriend(false);
   }
 
   return (
@@ -152,18 +153,37 @@ function FormAddFriend({ onAddFriend }) {
 }
 
 function FormSplitBill({ selectedFriend }) {
+  const [bill, setBill] = useState("");
+  const [paydByUser, setPaydByUser] = useState("");
+  const payedByFriend = bill ? bill - paydByUser : "";
+  const [whoIsPaying, setWhoIsPayind] = useState("user");
   return (
     <form action="" className="form-split-bill">
       <h2>Split a bill with {selectedFriend.name}</h2>
 
-      <label htmlFor="">💰 Bill value</label>
-      <input type="text" name="" id="" />
-      <label htmlFor="">🐷Your expense </label>
-      <input type="text" name="" id="" />
-      <label htmlFor="">🐵{selectedFriend.name} expense</label>
-      <input type="text" name="" id="" disabled />
-      <label htmlFor="">🤬Who is paying the bill</label>
-      <select name="" id="">
+      <label>💰 Bill value</label>
+      <input
+        type="text"
+        value={bill}
+        onChange={(cur) => setBill(Number(cur.target.value))}
+      />
+
+      <label>🐷Your expense </label>
+      <input
+        type="text"
+        value={paydByUser}
+        onChange={(cur) =>
+          setPaydByUser(Number(cur.target.value)) > bill
+            ? setPaydByUser
+            : setPaydByUser(Number(cur.target.value))
+        }
+      />
+
+      <label>🐵{selectedFriend.name} expense</label>
+      <input type="text" disabled value={payedByFriend} />
+
+      <label>🤬Who is paying the bill</label>
+      <select value={whoIsPaying} onChange={(cur) => setWhoIsPayind(cur.target.value)}>
         <option value="user">You</option>
         <option value="friend">{selectedFriend.name}</option>
       </select>
